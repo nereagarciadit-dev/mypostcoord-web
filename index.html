@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MyPostCoord — El sistema operativo de la coordinación de postproducción</title>
+<meta name="description" content="Una sola app para coordinar postproducción. Breakdown, screener, subtítulos, ADR, cost control y deliveries. Sin Excels duplicados ni mails infinitos.">
+
+<meta property="og:title" content="MyPostCoord — Coordinación de postproducción">
+<meta property="og:description" content="Una sola app. Sin Excels duplicados ni mails infinitos.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mypostcoord.com">
+<meta property="og:image" content="https://mypostcoord.com/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpolygon points='20,3 35,12 35,30 20,39 5,30 5,12' fill='%23E8C832'/%3E%3Cpolygon points='20,9 31,15 31,29 20,35 9,29 9,15' fill='%23141412'/%3E%3Ctext x='20' y='27' text-anchor='middle' font-family='system-ui' font-size='12' font-weight='700' fill='%23E8C832'%3EPC%3C/text%3E%3C/svg%3E">
+
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;600;700;800&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #FAFAF8; --bg2: #F4F3F0; --bg3: #ECEAE6;
+  --border: #E8E6E2; --border2: #D8D5D0;
+  --text: #111110; --text2: #4A4844; --text3: #8A8680;
+  --acc: #E8C832; --acc2: #D4B520; --yelbg: #FDFBE8;
+  --nav-bg: #141412; --nav-bg2: #1E1D1A;
+  --red: #C0392B; --amb: #B7620A; --grn: #1A6B35;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg); color: var(--text);
+  line-height: 1.6; -webkit-font-smoothing: antialiased;
+  font-size: 16px; overflow-x: hidden;
+}
+.container { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+
+.nav { position: sticky; top: 0; z-index: 50;
+  background: rgba(250,250,248,0.85);
+  backdrop-filter: saturate(180%) blur(12px);
+  -webkit-backdrop-filter: saturate(180%) blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-inner { display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 24px; max-width: 1180px; margin: 0 auto; }
+.brand { display: flex; align-items: center; gap: 10px;
+  font-family: 'Syne', sans-serif; font-weight: 700; font-size: 18px;
+  letter-spacing: -0.3px; text-decoration: none; color: var(--text); }
+.nav-links { display: flex; align-items: center; gap: 24px; }
+.nav-links a { font-size: 14px; color: var(--text2); text-decoration: none;
+  font-weight: 500; transition: color 0.15s; }
+.nav-links a:hover { color: var(--text); }
+.nav-cta { background: var(--nav-bg); color: var(--acc) !important;
+  padding: 9px 18px; border-radius: 7px; font-size: 13px; font-weight: 600;
+  transition: transform 0.15s; }
+.nav-cta:hover { transform: translateY(-1px); }
+
+.lang-toggle { display: inline-flex; align-items: center;
+  background: var(--bg2); border: 1px solid var(--border2);
+  border-radius: 7px; padding: 2px;
+  font-family: 'DM Mono', monospace; font-size: 11px;
+  font-weight: 600; letter-spacing: 0.05em; }
+.lang-btn { padding: 5px 10px; background: transparent; border: none;
+  border-radius: 5px; cursor: pointer; color: var(--text3);
+  font-family: inherit; font-size: inherit; font-weight: inherit;
+  letter-spacing: inherit; transition: all 0.15s; }
+.lang-btn.active { background: var(--nav-bg); color: var(--acc); }
+.lang-btn:hover:not(.active) { color: var(--text); }
+@media (max-width: 720px) {
+  .nav-links a:not(.nav-cta) { display: none; }
+}
+
+.hero { padding: 80px 0 100px; position: relative; overflow: hidden; }
+.hero::before { content: ""; position: absolute; top: -200px; right: -200px;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, var(--acc) 0%, transparent 70%);
+  opacity: 0.08; pointer-events: none; }
+.hero-grid { display: grid; grid-template-columns: 1.1fr 1fr;
+  gap: 60px; align-items: center; }
+@media (max-width: 920px) {
+  .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+}
+.eyebrow { display: inline-flex; align-items: center; gap: 8px;
+  background: var(--yelbg); border: 1px solid #E8D870;
+  padding: 5px 12px; border-radius: 20px;
+  font-size: 12px; font-weight: 500; color: #92620A;
+  margin-bottom: 22px; font-family: 'DM Mono', monospace;
+  letter-spacing: 0.02em; }
+.eyebrow::before { content: ""; width: 6px; height: 6px;
+  background: var(--acc); border-radius: 50%; display: inline-block;
+  animation: pulse 2s infinite; }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+h1 { font-family: 'Syne', sans-serif;
+  font-size: clamp(38px, 5.5vw, 64px); line-height: 1.04;
+  letter-spacing: -1.5px; font-weight: 700; margin-bottom: 24px; }
+h1 .underline { background: linear-gradient(180deg, transparent 65%, var(--acc) 65%, var(--acc) 95%, transparent 95%);
+  padding: 0 4px; }
+.hero-sub { font-size: 19px; color: var(--text2);
+  margin-bottom: 32px; max-width: 540px; line-height: 1.5; }
+.cta-group { display: flex; gap: 12px; flex-wrap: wrap; }
+.btn { display: inline-flex; align-items: center; gap: 8px;
+  padding: 13px 22px; border-radius: 8px;
+  font-size: 15px; font-weight: 600; text-decoration: none;
+  border: none; cursor: pointer; font-family: inherit;
+  transition: all 0.15s; }
+.btn-primary { background: var(--nav-bg); color: var(--acc); }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
+.btn-secondary { background: transparent; color: var(--text); border: 1px solid var(--border2); }
+.btn-secondary:hover { background: var(--bg2); }
+.hero-meta { margin-top: 22px; font-size: 13px; color: var(--text3);
+  display: flex; gap: 16px; flex-wrap: wrap; }
+.hero-meta span { display: inline-flex; align-items: center; gap: 5px; }
+.hero-meta span::before { content: "✓"; color: var(--grn); font-weight: 700; }
+
+.hero-visual { position: relative; }
+.mockup { background: var(--nav-bg); border-radius: 12px; padding: 20px;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.2), 0 10px 20px rgba(0,0,0,0.1);
+  transform: rotate(1deg); position: relative; }
+.mockup-bar { display: flex; gap: 5px; margin-bottom: 14px; }
+.mockup-bar span { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.15); }
+.mockup-content { background: var(--bg); border-radius: 6px; padding: 14px; }
+.mockup-title { font-family: 'Syne', sans-serif; font-size: 13px;
+  font-weight: 600; margin-bottom: 12px; color: var(--text); }
+.mockup-row { display: grid; grid-template-columns: 1fr 80px 40px;
+  gap: 8px; font-size: 11px; padding: 7px 0;
+  border-bottom: 1px solid var(--border); align-items: center; }
+.mockup-row:last-child { border-bottom: none; }
+.pill { font-size: 9px; font-weight: 600;
+  padding: 2px 8px; border-radius: 10px; text-align: center;
+  font-family: 'DM Mono', monospace; }
+.p-ok { background: #EDF7F1; color: var(--grn); }
+.p-rev { background: #FDF6EC; color: var(--amb); }
+.p-err { background: #FDF1F0; color: var(--red); }
+.p-pen { background: var(--bg3); color: var(--text3); }
+.pct { font-size: 10px; color: var(--text3); text-align: right; font-family: 'DM Mono', monospace; }
+
+.notif { position: absolute; background: white;
+  border: 1px solid var(--border); border-radius: 8px;
+  padding: 10px 14px; box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+  font-size: 12px; max-width: 240px;
+  animation: float 3s ease-in-out infinite; }
+.notif-1 { top: -20px; right: -10px; }
+.notif-2 { bottom: -20px; left: -20px; animation-delay: 1.5s; }
+.notif strong { font-weight: 600; }
+.notif-tag { font-size: 9px; color: var(--acc2);
+  font-family: 'DM Mono', monospace; letter-spacing: 0.04em;
+  text-transform: uppercase; margin-bottom: 3px; font-weight: 600; }
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+@media (max-width: 920px) { .notif { display: none; } }
+
+section { padding: 90px 0; }
+.section-eyebrow { font-size: 11px; font-family: 'DM Mono', monospace;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--acc2); margin-bottom: 14px; font-weight: 600; }
+.section-title { font-family: 'Syne', sans-serif;
+  font-size: clamp(30px, 4vw, 44px); line-height: 1.1;
+  letter-spacing: -0.8px; margin-bottom: 18px; font-weight: 700; }
+.section-lead { font-size: 17px; color: var(--text2); max-width: 640px;
+  line-height: 1.5; margin-bottom: 50px; }
+
+.problem { background: var(--nav-bg); color: #C8C5BE; }
+.problem .section-eyebrow { color: var(--acc); }
+.problem .section-title { color: #fff; }
+.problem .section-lead { color: #A8A59E; }
+.problem-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 18px; margin-top: 40px; }
+.problem-card { background: var(--nav-bg2); border: 1px solid #2A2926;
+  padding: 24px; border-radius: 10px; }
+.problem-num { font-family: 'Syne', sans-serif; font-size: 28px;
+  font-weight: 800; color: var(--acc); margin-bottom: 10px;
+  letter-spacing: -1px; }
+.problem-card h3 { color: #fff; font-size: 15px; margin-bottom: 8px; font-weight: 600; }
+.problem-card p { font-size: 14px; color: #A8A59E; line-height: 1.55; }
+
+.modules-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 12px; }
+.mod-card { background: var(--bg); border: 1px solid var(--border);
+  border-radius: 9px; padding: 18px 16px; transition: all 0.15s; }
+.mod-card:hover { border-color: var(--acc); transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.06); }
+.mod-icon { font-size: 18px; color: var(--acc2); margin-bottom: 10px;
+  font-weight: 700; display: block; }
+.mod-card h4 { font-size: 14px; font-weight: 600; margin-bottom: 4px; letter-spacing: -0.2px; }
+.mod-card p { font-size: 12px; color: var(--text3); line-height: 1.4; }
+
+.how { background: var(--bg2); }
+.steps { display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 24px; margin-top: 50px; }
+@media (max-width: 720px) { .steps { grid-template-columns: 1fr; } }
+.step { position: relative; padding-top: 30px; }
+.step-num { position: absolute; top: 0; left: 0;
+  font-family: 'Syne', sans-serif; font-size: 50px;
+  font-weight: 800; color: var(--acc); letter-spacing: -2px;
+  line-height: 1; opacity: 0.5; }
+.step h3 { font-family: 'Syne', sans-serif; font-size: 20px;
+  font-weight: 700; margin: 30px 0 10px; letter-spacing: -0.3px; }
+.step p { color: var(--text2); font-size: 15px; line-height: 1.55; }
+
+.beta { background: var(--nav-bg); color: #fff; border-radius: 16px;
+  padding: 60px; text-align: center; position: relative; overflow: hidden; }
+.beta::before { content: ""; position: absolute;
+  top: -100px; left: 50%; transform: translateX(-50%);
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, var(--acc) 0%, transparent 60%);
+  opacity: 0.12; }
+@media (max-width: 720px) { .beta { padding: 40px 24px; } }
+.beta-eyebrow { display: inline-block;
+  background: rgba(232, 200, 50, 0.15); color: var(--acc);
+  padding: 5px 14px; border-radius: 20px;
+  font-size: 11px; font-family: 'DM Mono', monospace;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  font-weight: 600; margin-bottom: 20px; position: relative; }
+.beta h2 { font-family: 'Syne', sans-serif;
+  font-size: clamp(28px, 4vw, 42px); line-height: 1.1;
+  margin-bottom: 16px; letter-spacing: -0.8px; position: relative; }
+.beta p { font-size: 17px; color: #C8C5BE; max-width: 560px;
+  margin: 0 auto 32px; position: relative; line-height: 1.5; }
+.beta form { display: flex; gap: 8px; max-width: 460px;
+  margin: 0 auto; position: relative; flex-wrap: wrap; }
+.beta input { flex: 1; min-width: 220px;
+  padding: 14px 18px; border-radius: 8px;
+  border: 1px solid #3A3835; background: var(--nav-bg2);
+  color: #fff; font-size: 15px; font-family: inherit; }
+.beta input:focus { outline: none; border-color: var(--acc); }
+.beta input::placeholder { color: #7A7770; }
+.beta button { background: var(--acc); color: var(--nav-bg);
+  border: none; padding: 14px 26px; border-radius: 8px;
+  font-weight: 700; font-size: 15px; cursor: pointer;
+  font-family: inherit; transition: transform 0.15s; }
+.beta button:hover { transform: translateY(-2px); }
+.beta-fineprint { font-size: 12px; color: #7A7770; margin-top: 16px; position: relative; }
+.beta-success { background: rgba(26, 107, 53, 0.2); border: 1px solid var(--grn);
+  border-radius: 8px; padding: 16px; color: #6EE7A3;
+  max-width: 460px; margin: 0 auto; display: none; position: relative; }
+.beta-success.show { display: block; animation: fadein 0.5s; }
+@keyframes fadein { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+.faq-list { max-width: 720px; margin: 0 auto; }
+.faq-item { border-bottom: 1px solid var(--border); padding: 22px 0; }
+.faq-q { display: flex; justify-content: space-between; align-items: center;
+  cursor: pointer; font-size: 16px; font-weight: 600;
+  font-family: 'Syne', sans-serif; letter-spacing: -0.2px; }
+.faq-q::after { content: "+"; font-size: 22px; color: var(--acc2);
+  transition: transform 0.2s; font-weight: 400; }
+.faq-item.open .faq-q::after { transform: rotate(45deg); }
+.faq-a { max-height: 0; overflow: hidden; transition: max-height 0.3s ease;
+  color: var(--text2); font-size: 15px; line-height: 1.6; }
+.faq-item.open .faq-a { max-height: 400px; padding-top: 14px; }
+
+footer { background: var(--nav-bg); color: #7A7770;
+  padding: 50px 0 30px; border-top: 1px solid var(--nav-bg2); }
+.footer-inner { display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 20px; }
+.footer-brand { display: flex; align-items: center; gap: 10px;
+  color: #fff; font-family: 'Syne', sans-serif;
+  font-weight: 700; font-size: 16px; }
+.footer-links { display: flex; gap: 24px; font-size: 13px; }
+.footer-links a { color: #C8C5BE; text-decoration: none; transition: color 0.15s; }
+.footer-links a:hover { color: var(--acc); }
+.footer-bot { margin-top: 28px; padding-top: 22px;
+  border-top: 1px solid #2A2926;
+  font-size: 12px; color: #5A5750; text-align: center; }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#" class="brand">
+      <svg viewBox="0 0 40 40" width="28" height="28">
+        <polygon points="20,3 35,12 35,30 20,39 5,30 5,12" fill="#E8C832"/>
+        <polygon points="20,9 31,15 31,29 20,35 9,29 9,15" fill="#141412"/>
+        <text x="20" y="27" text-anchor="middle" font-family="system-ui" font-size="12" font-weight="700" fill="#E8C832">PC</text>
+      </svg>
+      MyPostCoord
+    </a>
+    <div class="nav-links">
+      <a href="#problema" data-i18n="nav.problem">Problema</a>
+      <a href="#modulos" data-i18n="nav.modules">Módulos</a>
+      <a href="#como" data-i18n="nav.how">Cómo funciona</a>
+      <a href="#faq" data-i18n="nav.faq">FAQ</a>
+      <div class="lang-toggle">
+        <button class="lang-btn active" data-lang="es">ES</button>
+        <button class="lang-btn" data-lang="en">EN</button>
+      </div>
+      <a href="#beta" class="nav-cta" data-i18n="nav.cta">Acceso beta</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow" data-i18n="hero.eyebrow">Beta cerrada · Plazas limitadas</div>
+        <h1><span data-i18n="hero.title1">El sistema operativo de la</span> <span class="underline" data-i18n="hero.title2">coordinación de postproducción</span>.</h1>
+        <p class="hero-sub" data-i18n="hero.sub">Breakdown, screener, subtítulos, ADR, cost control, deliveries… Una sola app para coordinar postproducción. Sin Excels duplicados ni mails infinitos.</p>
+        <div class="cta-group">
+          <a href="#beta" class="btn btn-primary" data-i18n="hero.cta1">Solicitar acceso beta →</a>
+          <a href="#modulos" class="btn btn-secondary" data-i18n="hero.cta2">Ver módulos</a>
+        </div>
+        <div class="hero-meta">
+          <span data-i18n="hero.meta1">Sin instalación</span>
+          <span data-i18n="hero.meta2">Cifrado de extremo a extremo</span>
+          <span data-i18n="hero.meta3">Hecho con coordinadoras reales</span>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="mockup">
+          <div class="mockup-bar"><span></span><span></span><span></span></div>
+          <div class="mockup-content">
+            <div class="mockup-title" data-i18n="mockup.title">📁 Karateka · Estado general</div>
+            <div class="mockup-row"><span data-i18n="mockup.color">Etalonaje</span><span class="pill p-ok" data-i18n="mockup.s.ok">Aprobado</span><span class="pct">100%</span></div>
+            <div class="mockup-row"><span>VFX</span><span class="pill p-rev" data-i18n="mockup.s.rev">Revisión</span><span class="pct">72%</span></div>
+            <div class="mockup-row"><span data-i18n="mockup.mix">Mezcla 5.1</span><span class="pill p-err" data-i18n="mockup.s.err">Cambios</span><span class="pct">45%</span></div>
+            <div class="mockup-row"><span data-i18n="mockup.subs">Subtítulos EN</span><span class="pill p-pen" data-i18n="mockup.s.pen">Pendiente</span><span class="pct">0%</span></div>
+            <div class="mockup-row"><span>DCP</span><span class="pill p-pen" data-i18n="mockup.s.pen2">Pendiente</span><span class="pct">0%</span></div>
+          </div>
+        </div>
+        <div class="notif notif-1">
+          <div class="notif-tag" data-i18n="notif.tag1">⚡ Tiempo real</div>
+          <span data-i18n="notif.text1"><strong>Director:</strong> aprobada v3 del VFX shot 047</span>
+        </div>
+        <div class="notif notif-2">
+          <div class="notif-tag" data-i18n="notif.tag2">📩 Auto</div>
+          <span data-i18n="notif.text2"><strong>Informe semanal</strong> enviado al productor</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="problem" id="problema">
+  <div class="container">
+    <div class="section-eyebrow" data-i18n="problem.eyebrow">El problema</div>
+    <h2 class="section-title" data-i18n="problem.title">Tu día como coordinador/a, hoy.</h2>
+    <p class="section-lead" data-i18n="problem.lead">Coordinar una postproducción significa mantener vivos a la vez decenas de procesos, repartidos entre quince Excels, cincuenta correos al día, hilos de WhatsApp, Frame.io, Drive… y tu memoria.</p>
+    <div class="problem-grid">
+      <div class="problem-card"><div class="problem-num">47</div><h3 data-i18n="problem.c1.t">Mails al día</h3><p data-i18n="problem.c1.d">Director, productor, músico, subtitulador, laboratorio… cada uno te escribe por su lado.</p></div>
+      <div class="problem-card"><div class="problem-num">12</div><h3 data-i18n="problem.c2.t">Excels en paralelo</h3><p data-i18n="problem.c2.d">Presupuesto, breakdown, créditos, cartelas, deliveries. Cada uno con su versión "última-FINAL-v3".</p></div>
+      <div class="problem-card"><div class="problem-num">∞</div><h3 data-i18n="problem.c3.t">Estados que nadie sabe</h3><p data-i18n="problem.c3.d">¿Está aprobado el VFX? ¿La música licenciada? ¿El director vio el v3? Solo tú lo sabes.</p></div>
+      <div class="problem-card"><div class="problem-num">9:00</div><h3 data-i18n="problem.c4.t">El informe del lunes</h3><p data-i18n="problem.c4.d">Cada semana montas el informe al productor a mano. Cada semana.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="modulos">
+  <div class="container">
+    <div class="section-eyebrow" data-i18n="mod.eyebrow">La solución</div>
+    <h2 class="section-title" data-i18n="mod.title">17 módulos. Un solo panel.</h2>
+    <p class="section-lead" data-i18n="mod.lead">Todo lo que necesita una coordinación de postproducción, conectado en tiempo real. Cambias el estado en un sitio, se actualiza en todos.</p>
+    <div class="modules-grid">
+      <div class="mod-card"><span class="mod-icon">◯</span><h4 data-i18n="mod.team.t">Equipo</h4><p data-i18n="mod.team.d">Departamentos, contactos, roles.</p></div>
+      <div class="mod-card"><span class="mod-icon">◻</span><h4 data-i18n="mod.cal.t">Calendario</h4><p data-i18n="mod.cal.d">Mensual + longitudinal por departamento.</p></div>
+      <div class="mod-card"><span class="mod-icon">✓</span><h4 data-i18n="mod.rev.t">Revisiones</h4><p data-i18n="mod.rev.d">Aprobaciones del director (tipo Frame.io).</p></div>
+      <div class="mod-card"><span class="mod-icon">⊡</span><h4 data-i18n="mod.bd.t">Breakdown</h4><p data-i18n="mod.bd.d">Por departamento, con estados aprobables.</p></div>
+      <div class="mod-card"><span class="mod-icon">▶</span><h4 data-i18n="mod.bdp.t">Breakdown película</h4><p data-i18n="mod.bdp.d">Cortes y clips, con notas.</p></div>
+      <div class="mod-card"><span class="mod-icon">◉</span><h4 data-i18n="mod.scr.t">Screener</h4><p data-i18n="mod.scr.d">Notas por TC, urgencias, resolución.</p></div>
+      <div class="mod-card"><span class="mod-icon">⌗</span><h4 data-i18n="mod.sub.t">Subtítulos</h4><p data-i18n="mod.sub.d">Colaborativos con el director. Export a Word.</p></div>
+      <div class="mod-card"><span class="mod-icon">♪</span><h4 data-i18n="mod.lic.t">Licencias</h4><p data-i18n="mod.lic.d">Música, archivo, tipografía.</p></div>
+      <div class="mod-card"><span class="mod-icon">≡</span><h4 data-i18n="mod.car.t">Cartelas</h4><p data-i18n="mod.car.d">Variantes, numeración, contenido.</p></div>
+      <div class="mod-card"><span class="mod-icon">T</span><h4 data-i18n="mod.cred.t">Créditos</h4><p data-i18n="mod.cred.d">Por secciones, cargos y personas.</p></div>
+      <div class="mod-card"><span class="mod-icon">↑</span><h4 data-i18n="mod.del.t">Deliveries</h4><p data-i18n="mod.del.d">Por plataforma, checklist de materiales.</p></div>
+      <div class="mod-card"><span class="mod-icon">◎</span><h4 data-i18n="mod.adr.t">ADR</h4><p data-i18n="mod.adr.d">Planificación tipo Tetris.</p></div>
+      <div class="mod-card"><span class="mod-icon">⊛</span><h4 data-i18n="mod.fic.t">Ficha técnica</h4><p data-i18n="mod.fic.d">Cámara, discos, plataformas, DaVinci.</p></div>
+      <div class="mod-card"><span class="mod-icon">€</span><h4 data-i18n="mod.cost.t">Cost Control</h4><p data-i18n="mod.cost.d">Importa Excel, gestiona facturas.</p></div>
+      <div class="mod-card"><span class="mod-icon">📄</span><h4 data-i18n="mod.inf.t">Informe productor</h4><p data-i18n="mod.inf.d">Automático. PDF o email con un clic.</p></div>
+      <div class="mod-card"><span class="mod-icon">📁</span><h4 data-i18n="mod.doc.t">Documentación</h4><p data-i18n="mod.doc.d">Carpetas, enlaces, notas.</p></div>
+      <div class="mod-card"><span class="mod-icon">⊕</span><h4 data-i18n="mod.role.t">Roles y permisos</h4><p data-i18n="mod.role.d">"Ver como" para simular cada perfil.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="how" id="como">
+  <div class="container">
+    <div class="section-eyebrow" data-i18n="how.eyebrow">Cómo empiezas</div>
+    <h2 class="section-title" data-i18n="how.title">De caos a coordinación en 3 pasos.</h2>
+    <div class="steps">
+      <div class="step"><div class="step-num">01</div><h3 data-i18n="how.s1.t">Importas tu proyecto</h3><p data-i18n="how.s1.d">Subes tu Excel de presupuesto, de breakdown, de créditos. MyPostCoord detecta las columnas y lo monta solo.</p></div>
+      <div class="step"><div class="step-num">02</div><h3 data-i18n="how.s2.t">Invitas a tu equipo</h3><p data-i18n="how.s2.d">Director, productor, técnicos… Cada uno entra a su parte. Tú decides qué ve cada perfil.</p></div>
+      <div class="step"><div class="step-num">03</div><h3 data-i18n="how.s3.t">Coordinas en un solo sitio</h3><p data-i18n="how.s3.d">Estados al clic, revisiones unificadas, informes automáticos. Lo que antes era una mañana, ahora es un botón.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="beta">
+  <div class="container">
+    <div class="beta">
+      <span class="beta-eyebrow" data-i18n="beta.eyebrow">🎯 Acceso beta · Gratis durante la beta</span>
+      <h2 data-i18n="beta.title">Quiero usarlo en mi próximo proyecto.</h2>
+      <p data-i18n="beta.lead">Estamos invitando a coordinadoras y coordinadores de postproducción a probar MyPostCoord en proyectos reales. Acceso completo, gratis durante la beta, a cambio de feedback.</p>
+      <form id="beta-form">
+        <input type="email" name="email" placeholder="tu@email.com" required data-i18n-placeholder="beta.placeholder">
+        <button type="submit" data-i18n="beta.btn">Quiero entrar</button>
+      </form>
+      <div class="beta-fineprint" data-i18n="beta.fine">No spam. Solo te escribimos cuando te toque tu invitación.</div>
+      <div class="beta-success" id="beta-success" data-i18n="beta.success">✓ ¡Recibido! Te escribimos en cuanto haya una plaza libre.</div>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="container">
+    <div class="section-eyebrow" data-i18n="faq.eyebrow">Preguntas frecuentes</div>
+    <h2 class="section-title" data-i18n="faq.title">Lo que probablemente te estás preguntando.</h2>
+    <div class="faq-list" style="margin-top:50px">
+      <div class="faq-item"><div class="faq-q" data-i18n="faq.q1">¿Quién está detrás de MyPostCoord?</div><div class="faq-a" data-i18n="faq.a1">Lo está construyendo gente del sector audiovisual, con coordinadoras reales aportando feedback constante. No es una herramienta genérica adaptada — está pensada desde cero para postproducción.</div></div>
+      <div class="faq-item"><div class="faq-q" data-i18n="faq.q2">¿Reemplaza a Frame.io?</div><div class="faq-a" data-i18n="faq.a2">No del todo, pero sí integra revisiones del director y productor en un mismo flujo. Si solo usas Frame.io para que el director apruebe entregas de VFX, etalonaje o subtítulos, probablemente sí lo cubre.</div></div>
+      <div class="faq-item"><div class="faq-q" data-i18n="faq.q3">¿Y mis Excels de presupuesto?</div><div class="faq-a" data-i18n="faq.a3">Los importas tal cual. El módulo Cost Control detecta automáticamente si es tabla de presupuesto o de facturas leyendo los nombres de las columnas. También hay plantilla oficial descargable.</div></div>
+      <div class="faq-item"><div class="faq-q" data-i18n="faq.q4">¿Mis datos están seguros?</div><div class="faq-a" data-i18n="faq.a4">Sí. Usamos Supabase con cifrado en reposo y en tránsito, autenticación segura y Row Level Security: cada usuario solo ve los proyectos a los que tiene acceso. Nunca compartimos datos con terceros.</div></div>
+      <div class="faq-item"><div class="faq-q" data-i18n="faq.q5">¿Cuánto va a costar cuando salga de beta?</div><div class="faq-a" data-i18n="faq.a5">Aún lo estamos definiendo con feedback de la beta. Habrá un plan por proyecto y otro por estudio. Las personas de la beta tendrán condiciones especiales de por vida.</div></div>
+      <div class="faq-item"><div class="faq-q" data-i18n="faq.q6">¿Funciona para series, no solo películas?</div><div class="faq-a" data-i18n="faq.a6">Sí. Al crear un proyecto eliges si es película o serie, y en serie defines cuántos capítulos. Cada capítulo es un proyecto dentro del proyecto.</div></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <svg viewBox="0 0 40 40" width="24" height="24">
+          <polygon points="20,3 35,12 35,30 20,39 5,30 5,12" fill="#E8C832"/>
+          <polygon points="20,9 31,15 31,29 20,35 9,29 9,15" fill="#141412"/>
+          <text x="20" y="27" text-anchor="middle" font-family="system-ui" font-size="12" font-weight="700" fill="#E8C832">PC</text>
+        </svg>
+        MyPostCoord
+      </div>
+      <div class="footer-links">
+        <a href="#modulos" data-i18n="nav.modules">Módulos</a>
+        <a href="#beta" data-i18n="nav.cta">Acceso beta</a>
+        <a href="#faq" data-i18n="nav.faq">FAQ</a>
+        <a href="mailto:info@mypostcoord.com">info@mypostcoord.com</a>
+      </div>
+    </div>
+    <div class="footer-bot" data-i18n="footer.bot">© 2026 MyPostCoord · Hecho con cariño para coordinadoras de postproducción.</div>
+  </div>
+</footer>
+
+<script>
+const T = {
+  es: {
+    "nav.problem":"Problema","nav.modules":"Módulos","nav.how":"Cómo funciona","nav.faq":"FAQ","nav.cta":"Acceso beta",
+    "hero.eyebrow":"Beta cerrada · Plazas limitadas",
+    "hero.title1":"El sistema operativo de la","hero.title2":"coordinación de postproducción",
+    "hero.sub":"Breakdown, screener, subtítulos, ADR, cost control, deliveries… Una sola app para coordinar postproducción. Sin Excels duplicados ni mails infinitos.",
+    "hero.cta1":"Solicitar acceso beta →","hero.cta2":"Ver módulos",
+    "hero.meta1":"Sin instalación","hero.meta2":"Cifrado de extremo a extremo","hero.meta3":"Hecho con coordinadoras reales",
+    "mockup.title":"📁 Karateka · Estado general","mockup.color":"Etalonaje","mockup.mix":"Mezcla 5.1","mockup.subs":"Subtítulos EN",
+    "mockup.s.ok":"Aprobado","mockup.s.rev":"Revisión","mockup.s.err":"Cambios","mockup.s.pen":"Pendiente","mockup.s.pen2":"Pendiente",
+    "notif.tag1":"⚡ Tiempo real","notif.text1":"<strong>Director:</strong> aprobada v3 del VFX shot 047",
+    "notif.tag2":"📩 Auto","notif.text2":"<strong>Informe semanal</strong> enviado al productor",
+    "problem.eyebrow":"El problema","problem.title":"Tu día como coordinador/a, hoy.",
+    "problem.lead":"Coordinar una postproducción significa mantener vivos a la vez decenas de procesos, repartidos entre quince Excels, cincuenta correos al día, hilos de WhatsApp, Frame.io, Drive… y tu memoria.",
+    "problem.c1.t":"Mails al día","problem.c1.d":"Director, productor, músico, subtitulador, laboratorio… cada uno te escribe por su lado.",
+    "problem.c2.t":"Excels en paralelo","problem.c2.d":"Presupuesto, breakdown, créditos, cartelas, deliveries. Cada uno con su versión \"última-FINAL-v3\".",
+    "problem.c3.t":"Estados que nadie sabe","problem.c3.d":"¿Está aprobado el VFX? ¿La música licenciada? ¿El director vio el v3? Solo tú lo sabes.",
+    "problem.c4.t":"El informe del lunes","problem.c4.d":"Cada semana montas el informe al productor a mano. Cada semana.",
+    "mod.eyebrow":"La solución","mod.title":"17 módulos. Un solo panel.",
+    "mod.lead":"Todo lo que necesita una coordinación de postproducción, conectado en tiempo real. Cambias el estado en un sitio, se actualiza en todos.",
+    "mod.team.t":"Equipo","mod.team.d":"Departamentos, contactos, roles.",
+    "mod.cal.t":"Calendario","mod.cal.d":"Mensual + longitudinal por departamento.",
+    "mod.rev.t":"Revisiones","mod.rev.d":"Aprobaciones del director (tipo Frame.io).",
+    "mod.bd.t":"Breakdown","mod.bd.d":"Por departamento, con estados aprobables.",
+    "mod.bdp.t":"Breakdown película","mod.bdp.d":"Cortes y clips, con notas.",
+    "mod.scr.t":"Screener","mod.scr.d":"Notas por TC, urgencias, resolución.",
+    "mod.sub.t":"Subtítulos","mod.sub.d":"Colaborativos con el director. Export a Word.",
+    "mod.lic.t":"Licencias","mod.lic.d":"Música, archivo, tipografía.",
+    "mod.car.t":"Cartelas","mod.car.d":"Variantes, numeración, contenido.",
+    "mod.cred.t":"Créditos","mod.cred.d":"Por secciones, cargos y personas.",
+    "mod.del.t":"Deliveries","mod.del.d":"Por plataforma, checklist de materiales.",
+    "mod.adr.t":"ADR","mod.adr.d":"Planificación tipo Tetris.",
+    "mod.fic.t":"Ficha técnica","mod.fic.d":"Cámara, discos, plataformas, DaVinci.",
+    "mod.cost.t":"Cost Control","mod.cost.d":"Importa Excel, gestiona facturas.",
+    "mod.inf.t":"Informe productor","mod.inf.d":"Automático. PDF o email con un clic.",
+    "mod.doc.t":"Documentación","mod.doc.d":"Carpetas, enlaces, notas.",
+    "mod.role.t":"Roles y permisos","mod.role.d":"\"Ver como\" para simular cada perfil.",
+    "how.eyebrow":"Cómo empiezas","how.title":"De caos a coordinación en 3 pasos.",
+    "how.s1.t":"Importas tu proyecto","how.s1.d":"Subes tu Excel de presupuesto, de breakdown, de créditos. MyPostCoord detecta las columnas y lo monta solo.",
+    "how.s2.t":"Invitas a tu equipo","how.s2.d":"Director, productor, técnicos… Cada uno entra a su parte. Tú decides qué ve cada perfil.",
+    "how.s3.t":"Coordinas en un solo sitio","how.s3.d":"Estados al clic, revisiones unificadas, informes automáticos. Lo que antes era una mañana, ahora es un botón.",
+    "beta.eyebrow":"🎯 Acceso beta · Gratis durante la beta",
+    "beta.title":"Quiero usarlo en mi próximo proyecto.",
+    "beta.lead":"Estamos invitando a coordinadoras y coordinadores de postproducción a probar MyPostCoord en proyectos reales. Acceso completo, gratis durante la beta, a cambio de feedback.",
+    "beta.placeholder":"tu@email.com","beta.btn":"Quiero entrar",
+    "beta.fine":"No spam. Solo te escribimos cuando te toque tu invitación.",
+    "beta.success":"✓ ¡Recibido! Te escribimos en cuanto haya una plaza libre.",
+    "faq.eyebrow":"Preguntas frecuentes","faq.title":"Lo que probablemente te estás preguntando.",
+    "faq.q1":"¿Quién está detrás de MyPostCoord?","faq.a1":"Lo está construyendo gente del sector audiovisual, con coordinadoras reales aportando feedback constante. No es una herramienta genérica adaptada — está pensada desde cero para postproducción.",
+    "faq.q2":"¿Reemplaza a Frame.io?","faq.a2":"No del todo, pero sí integra revisiones del director y productor en un mismo flujo. Si solo usas Frame.io para que el director apruebe entregas de VFX, etalonaje o subtítulos, probablemente sí lo cubre.",
+    "faq.q3":"¿Y mis Excels de presupuesto?","faq.a3":"Los importas tal cual. El módulo Cost Control detecta automáticamente si es tabla de presupuesto o de facturas leyendo los nombres de las columnas. También hay plantilla oficial descargable.",
+    "faq.q4":"¿Mis datos están seguros?","faq.a4":"Sí. Usamos Supabase con cifrado en reposo y en tránsito, autenticación segura y Row Level Security: cada usuario solo ve los proyectos a los que tiene acceso. Nunca compartimos datos con terceros.",
+    "faq.q5":"¿Cuánto va a costar cuando salga de beta?","faq.a5":"Aún lo estamos definiendo con feedback de la beta. Habrá un plan por proyecto y otro por estudio. Las personas de la beta tendrán condiciones especiales de por vida.",
+    "faq.q6":"¿Funciona para series, no solo películas?","faq.a6":"Sí. Al crear un proyecto eliges si es película o serie, y en serie defines cuántos capítulos. Cada capítulo es un proyecto dentro del proyecto.",
+    "footer.bot":"© 2026 MyPostCoord · Hecho con cariño para coordinadoras de postproducción."
+  },
+  en: {
+    "nav.problem":"Problem","nav.modules":"Modules","nav.how":"How it works","nav.faq":"FAQ","nav.cta":"Beta access",
+    "hero.eyebrow":"Closed beta · Limited seats",
+    "hero.title1":"The operating system for","hero.title2":"post-production coordination",
+    "hero.sub":"Breakdown, screener, subtitles, ADR, cost control, deliveries… One app to coordinate post-production. No more duplicated spreadsheets or endless email threads.",
+    "hero.cta1":"Request beta access →","hero.cta2":"See modules",
+    "hero.meta1":"No installation","hero.meta2":"End-to-end encryption","hero.meta3":"Built with real coordinators",
+    "mockup.title":"📁 Karateka · Project status","mockup.color":"Color grading","mockup.mix":"5.1 Mix","mockup.subs":"Subtitles EN",
+    "mockup.s.ok":"Approved","mockup.s.rev":"In review","mockup.s.err":"Changes","mockup.s.pen":"Pending","mockup.s.pen2":"Pending",
+    "notif.tag1":"⚡ Real time","notif.text1":"<strong>Director:</strong> approved VFX shot 047 v3",
+    "notif.tag2":"📩 Auto","notif.text2":"<strong>Weekly report</strong> sent to producer",
+    "problem.eyebrow":"The problem","problem.title":"Your day as a coordinator, today.",
+    "problem.lead":"Coordinating a post-production means keeping dozens of processes alive at once, scattered across fifteen spreadsheets, fifty emails a day, WhatsApp threads, Frame.io, Drive… and your memory.",
+    "problem.c1.t":"Emails per day","problem.c1.d":"Director, producer, composer, subtitler, lab… each one writes to you separately.",
+    "problem.c2.t":"Parallel spreadsheets","problem.c2.d":"Budget, breakdown, credits, title cards, deliveries. Each with their own \"final-FINAL-v3\" version.",
+    "problem.c3.t":"Statuses nobody knows","problem.c3.d":"Are the VFX approved? Is the music licensed? Did the director see v3? Only you know.",
+    "problem.c4.t":"The Monday report","problem.c4.d":"Every week you build the producer report by hand. Every week.",
+    "mod.eyebrow":"The solution","mod.title":"17 modules. One panel.",
+    "mod.lead":"Everything a post-production coordination needs, connected in real time. Change a status in one place, it updates everywhere.",
+    "mod.team.t":"Team","mod.team.d":"Departments, contacts, roles.",
+    "mod.cal.t":"Calendar","mod.cal.d":"Monthly + longitudinal by department.",
+    "mod.rev.t":"Reviews","mod.rev.d":"Director approvals (Frame.io-style).",
+    "mod.bd.t":"Breakdown","mod.bd.d":"By department, with approvable statuses.",
+    "mod.bdp.t":"Film breakdown","mod.bdp.d":"Cuts and clips, with notes.",
+    "mod.scr.t":"Screener","mod.scr.d":"Notes by TC, urgent flags, resolution.",
+    "mod.sub.t":"Subtitles","mod.sub.d":"Collaborative with director. Word export.",
+    "mod.lic.t":"Licensing","mod.lic.d":"Music, archive, typography.",
+    "mod.car.t":"Title cards","mod.car.d":"Variants, numbering, content.",
+    "mod.cred.t":"Credits","mod.cred.d":"By section, roles and people.",
+    "mod.del.t":"Deliveries","mod.del.d":"By platform, materials checklist.",
+    "mod.adr.t":"ADR","mod.adr.d":"Tetris-style planning.",
+    "mod.fic.t":"Tech sheet","mod.fic.d":"Camera, drives, platforms, DaVinci.",
+    "mod.cost.t":"Cost Control","mod.cost.d":"Import Excel, manage invoices.",
+    "mod.inf.t":"Producer report","mod.inf.d":"Automatic. PDF or email in one click.",
+    "mod.doc.t":"Documentation","mod.doc.d":"Folders, links, notes.",
+    "mod.role.t":"Roles & permissions","mod.role.d":"\"View as\" to simulate any profile.",
+    "how.eyebrow":"How you start","how.title":"From chaos to coordination in 3 steps.",
+    "how.s1.t":"Import your project","how.s1.d":"Upload your budget, breakdown, credits spreadsheet. MyPostCoord detects the columns and sets it up automatically.",
+    "how.s2.t":"Invite your team","how.s2.d":"Director, producer, technicians… Each one enters their part. You decide what each profile sees.",
+    "how.s3.t":"Coordinate in one place","how.s3.d":"Statuses at one click, unified reviews, automatic reports. What used to be a morning is now a button.",
+    "beta.eyebrow":"🎯 Beta access · Free during beta",
+    "beta.title":"I want to use it on my next project.",
+    "beta.lead":"We're inviting post-production coordinators to try MyPostCoord on real projects. Full access, free during beta, in exchange for feedback.",
+    "beta.placeholder":"your@email.com","beta.btn":"I want in",
+    "beta.fine":"No spam. We only reach out when your invitation is ready.",
+    "beta.success":"✓ Got it! We'll reach out as soon as a seat opens up.",
+    "faq.eyebrow":"Frequently asked questions","faq.title":"What you're probably wondering.",
+    "faq.q1":"Who's behind MyPostCoord?","faq.a1":"It's being built by people in the audiovisual industry, with real coordinators giving constant feedback. It's not a generic tool retrofitted — it's designed from scratch for post-production.",
+    "faq.q2":"Does it replace Frame.io?","faq.a2":"Not entirely, but it does integrate director and producer reviews in the same flow. If you only use Frame.io for the director to approve VFX, color grading or subtitles deliveries, it probably covers that.",
+    "faq.q3":"What about my budget spreadsheets?","faq.a3":"You import them as-is. The Cost Control module automatically detects whether it's a budget or invoice table by reading the column names. There's also a downloadable official template.",
+    "faq.q4":"Is my data secure?","faq.a4":"Yes. We use Supabase with encryption at rest and in transit, secure authentication and Row Level Security: each user only sees the projects they have access to. We never share data with third parties.",
+    "faq.q5":"How much will it cost after beta?","faq.a5":"We're still figuring it out with beta feedback. There will be a per-project plan and a per-studio plan. Beta users will get special lifetime conditions.",
+    "faq.q6":"Does it work for series, not just films?","faq.a6":"Yes. When you create a project you choose if it's a film or a series, and for series you define how many episodes. Each episode is a project within the project.",
+    "footer.bot":"© 2026 MyPostCoord · Made with love for post-production coordinators."
+  }
+};
+
+function setLanguage(lang) {
+  if (!T[lang]) lang = 'es';
+  document.documentElement.lang = lang;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const k = el.getAttribute('data-i18n');
+    if (T[lang][k]) el.innerHTML = T[lang][k];
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const k = el.getAttribute('data-i18n-placeholder');
+    if (T[lang][k]) el.setAttribute('placeholder', T[lang][k]);
+  });
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+  });
+  try { localStorage.setItem('mypc_lang', lang); } catch(e) {}
+}
+
+function detectLanguage() {
+  let saved = null;
+  try { saved = localStorage.getItem('mypc_lang'); } catch(e) {}
+  if (saved && T[saved]) return saved;
+  const bl = (navigator.language || navigator.userLanguage || 'es').toLowerCase();
+  if (bl.startsWith('es')) return 'es';
+  return 'en';
+}
+
+document.querySelectorAll('.lang-btn').forEach(btn => {
+  btn.addEventListener('click', () => setLanguage(btn.getAttribute('data-lang')));
+});
+
+setLanguage(detectLanguage());
+
+document.querySelectorAll('.faq-item').forEach(item => {
+  item.querySelector('.faq-q').addEventListener('click', () => {
+    item.classList.toggle('open');
+  });
+});
+
+document.getElementById('beta-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const email = this.email.value;
+  const FORMSPREE_URL = 'https://formspree.io/f/REEMPLAZAR_ID';
+  if (FORMSPREE_URL.includes('REEMPLAZAR_ID')) {
+    document.getElementById('beta-success').classList.add('show');
+    this.style.display = 'none';
+    console.log('Demo: email received →', email);
+    return;
+  }
+  try {
+    const res = await fetch(FORMSPREE_URL, {
+      method: 'POST',
+      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: email })
+    });
+    if (res.ok) {
+      document.getElementById('beta-success').classList.add('show');
+      this.style.display = 'none';
+    } else { alert('Error. Try again.'); }
+  } catch (err) { alert('Error. Try again.'); }
+});
+</script>
+
+</body>
+</html>
