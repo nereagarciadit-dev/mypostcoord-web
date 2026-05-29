@@ -284,7 +284,7 @@ footer { background: var(--nav-bg); color: #7A7770;
         <button class="lang-btn active" data-lang="es">ES</button>
         <button class="lang-btn" data-lang="en">EN</button>
       </div>
-      <a href="#beta" class="nav-cta" data-i18n="nav.cta">Acceso beta</a>
+      <a href="https://mypostcoord.app" class="nav-cta" data-i18n="nav.cta">Entrar</a>
     </div>
   </div>
 </nav>
@@ -293,12 +293,12 @@ footer { background: var(--nav-bg); color: #7A7770;
   <div class="container">
     <div class="hero-grid">
       <div>
-        <div class="eyebrow" data-i18n="hero.eyebrow">Beta cerrada · Plazas limitadas</div>
+        <div class="eyebrow" data-i18n="hero.eyebrow">Disponible ahora · Sin instalación</div>
         <h1><span data-i18n="hero.title1">El sistema operativo de la</span> <span class="underline" data-i18n="hero.title2">coordinación de postproducción</span>.</h1>
         <p class="hero-sub" data-i18n="hero.sub">Breakdown, screener, subtítulos, ADR, cost control, deliveries… Una sola app para coordinar postproducción. Sin Excels duplicados ni mails infinitos.</p>
         <div class="cta-group">
-          <a href="#beta" class="btn btn-primary" data-i18n="hero.cta1">Solicitar acceso beta →</a>
-          <a href="#modulos" class="btn btn-secondary" data-i18n="hero.cta2">Ver módulos</a>
+          <a href="https://mypostcoord.app" class="btn btn-primary" data-i18n="hero.cta1">Empezar gratis →</a>
+          <a href="https://mypostcoord.app" class="btn btn-secondary" data-i18n="hero.cta2">Iniciar sesión</a>
         </div>
         <div class="hero-meta">
           <span data-i18n="hero.meta1">Sin instalación</span>
@@ -387,15 +387,14 @@ footer { background: var(--nav-bg); color: #7A7770;
 <section id="beta">
   <div class="container">
     <div class="beta">
-      <span class="beta-eyebrow" data-i18n="beta.eyebrow">🎯 Acceso beta · Gratis durante la beta</span>
-      <h2 data-i18n="beta.title">Quiero usarlo en mi próximo proyecto.</h2>
-      <p data-i18n="beta.lead">Estamos invitando a coordinadoras y coordinadores de postproducción a probar MyPostCoord en proyectos reales. Acceso completo, gratis durante la beta, a cambio de feedback.</p>
-      <form id="beta-form">
-        <input type="email" name="email" placeholder="tu@email.com" required data-i18n-placeholder="beta.placeholder">
-        <button type="submit" data-i18n="beta.btn">Quiero entrar</button>
-      </form>
-      <div class="beta-fineprint" data-i18n="beta.fine">No spam. Solo te escribimos cuando te toque tu invitación.</div>
-      <div class="beta-success" id="beta-success" data-i18n="beta.success">✓ ¡Recibido! Te escribimos en cuanto haya una plaza libre.</div>
+      <span class="beta-eyebrow" data-i18n="beta.eyebrow">🚀 Empieza hoy · Gratis</span>
+      <h2 data-i18n="beta.title">Coordina tu próximo proyecto desde el primer día.</h2>
+      <p data-i18n="beta.lead">Crea tu cuenta en segundos, configura tus proyectos e invita a tu equipo. Sin instalación, sin tarjeta de crédito.</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:28px">
+        <a href="https://mypostcoord.app" class="btn btn-primary" data-i18n="beta.btn1">Crear cuenta gratis →</a>
+        <a href="https://mypostcoord.app" class="btn btn-secondary" data-i18n="beta.btn2">Ya tengo cuenta</a>
+      </div>
+      <div class="beta-fineprint" data-i18n="beta.fine">Sin tarjeta de crédito · Sin instalación · En todos los dispositivos</div>
     </div>
   </div>
 </section>
@@ -428,7 +427,7 @@ footer { background: var(--nav-bg); color: #7A7770;
       </div>
       <div class="footer-links">
         <a href="#modulos" data-i18n="nav.modules">Módulos</a>
-        <a href="#beta" data-i18n="nav.cta">Acceso beta</a>
+        <a href="https://mypostcoord.app" data-i18n="nav.cta">Entrar</a>
         <a href="#faq" data-i18n="nav.faq">FAQ</a>
         <a href="mailto:info@mypostcoord.com">info@mypostcoord.com</a>
       </div>
@@ -440,11 +439,11 @@ footer { background: var(--nav-bg); color: #7A7770;
 <script>
 const T = {
   es: {
-    "nav.problem":"Problema","nav.modules":"Módulos","nav.how":"Cómo funciona","nav.faq":"FAQ","nav.cta":"Acceso beta",
-    "hero.eyebrow":"Beta cerrada · Plazas limitadas",
+    "nav.problem":"Problema","nav.modules":"Módulos","nav.how":"Cómo funciona","nav.faq":"FAQ","nav.cta":"Entrar",
+    "hero.eyebrow":"Disponible ahora · Sin instalación",
     "hero.title1":"El sistema operativo de la","hero.title2":"coordinación de postproducción",
     "hero.sub":"Breakdown, screener, subtítulos, ADR, cost control, deliveries… Una sola app para coordinar postproducción. Sin Excels duplicados ni mails infinitos.",
-    "hero.cta1":"Solicitar acceso beta →","hero.cta2":"Ver módulos",
+    "hero.cta1":"Empezar gratis →","hero.cta2":"Iniciar sesión",
     "hero.meta1":"Sin instalación","hero.meta2":"Cifrado de extremo a extremo","hero.meta3":"Hecho con coordinadoras reales",
     "mockup.title":"📁 Proyecto · Estado general","mockup.color":"Etalonaje","mockup.mix":"Mezcla 5.1","mockup.subs":"Subtítulos EN",
     "mockup.s.ok":"Aprobado","mockup.s.rev":"Revisión","mockup.s.err":"Cambios","mockup.s.pen":"Pendiente","mockup.s.pen2":"Pendiente",
@@ -479,27 +478,26 @@ const T = {
     "how.s1.t":"Importas tu proyecto","how.s1.d":"Subes tu Excel de presupuesto, de breakdown, de créditos. MyPostCoord detecta las columnas y lo monta solo.",
     "how.s2.t":"Invitas a tu equipo","how.s2.d":"Director, productor, técnicos… Cada uno entra a su parte. Tú decides qué ve cada perfil.",
     "how.s3.t":"Coordinas en un solo sitio","how.s3.d":"Estados al clic, revisiones unificadas, informes automáticos. Lo que antes era una mañana, ahora es un botón.",
-    "beta.eyebrow":"🎯 Acceso beta · Gratis durante la beta",
-    "beta.title":"Quiero usarlo en mi próximo proyecto.",
-    "beta.lead":"Estamos invitando a coordinadoras y coordinadores de postproducción a probar MyPostCoord en proyectos reales. Acceso completo, gratis durante la beta, a cambio de feedback.",
-    "beta.placeholder":"tu@email.com","beta.btn":"Quiero entrar",
-    "beta.fine":"No spam. Solo te escribimos cuando te toque tu invitación.",
-    "beta.success":"✓ ¡Recibido! Te escribimos en cuanto haya una plaza libre.",
+    "beta.eyebrow":"🚀 Empieza hoy · Gratis",
+    "beta.title":"Coordina tu próximo proyecto desde el primer día.",
+    "beta.lead":"Crea tu cuenta en segundos, configura tus proyectos e invita a tu equipo. Sin instalación, sin tarjeta de crédito.",
+    "beta.btn1":"Crear cuenta gratis →","beta.btn2":"Ya tengo cuenta",
+    "beta.fine":"Sin tarjeta de crédito · Sin instalación · En todos los dispositivos",
     "faq.eyebrow":"Preguntas frecuentes","faq.title":"Lo que probablemente te estás preguntando.",
     "faq.q1":"¿Quién está detrás de MyPostCoord?","faq.a1":"Lo está construyendo gente del sector audiovisual, con coordinadoras reales aportando feedback constante. No es una herramienta genérica adaptada — está pensada desde cero para postproducción.",
     "faq.q2":"¿Reemplaza a Frame.io?","faq.a2":"No del todo, pero sí integra revisiones del director y productor en un mismo flujo. Si solo usas Frame.io para que el director apruebe entregas de VFX, etalonaje o subtítulos, probablemente sí lo cubre.",
     "faq.q3":"¿Y mis Excels de presupuesto?","faq.a3":"Los importas tal cual. El módulo Cost Control detecta automáticamente si es tabla de presupuesto o de facturas leyendo los nombres de las columnas. También hay plantilla oficial descargable.",
     "faq.q4":"¿Mis datos están seguros?","faq.a4":"Sí. Usamos Supabase con cifrado en reposo y en tránsito, autenticación segura y Row Level Security: cada usuario solo ve los proyectos a los que tiene acceso. Nunca compartimos datos con terceros.",
-    "faq.q5":"¿Cuánto va a costar cuando salga de beta?","faq.a5":"Aún lo estamos definiendo con feedback de la beta. Habrá un plan por proyecto y otro por estudio. Las personas de la beta tendrán condiciones especiales de por vida.",
+    "faq.q5":"¿Cuánto cuesta?","faq.a5":"MyPostCoord tiene un plan gratuito para empezar. Habrá planes de pago por proyecto y por estudio para equipos que necesiten funcionalidades avanzadas.",
     "faq.q6":"¿Funciona para series, no solo películas?","faq.a6":"Sí. Al crear un proyecto eliges si es película o serie, y en serie defines cuántos capítulos. Cada capítulo es un proyecto dentro del proyecto.",
     "footer.bot":"© 2026 MyPostCoord · Hecho con cariño para coordinadoras de postproducción."
   },
   en: {
-    "nav.problem":"Problem","nav.modules":"Modules","nav.how":"How it works","nav.faq":"FAQ","nav.cta":"Beta access",
-    "hero.eyebrow":"Closed beta · Limited seats",
+    "nav.problem":"Problem","nav.modules":"Modules","nav.how":"How it works","nav.faq":"FAQ","nav.cta":"Log in",
+    "hero.eyebrow":"Available now · No installation needed",
     "hero.title1":"The operating system for","hero.title2":"post-production coordination",
     "hero.sub":"Breakdown, screener, subtitles, ADR, cost control, deliveries… One app to coordinate post-production. No more duplicated spreadsheets or endless email threads.",
-    "hero.cta1":"Request beta access →","hero.cta2":"See modules",
+    "hero.cta1":"Start for free →","hero.cta2":"Log in",
     "hero.meta1":"No installation","hero.meta2":"End-to-end encryption","hero.meta3":"Built with real coordinators",
     "mockup.title":"📁 Project · Status overview","mockup.color":"Color grading","mockup.mix":"5.1 Mix","mockup.subs":"Subtitles EN",
     "mockup.s.ok":"Approved","mockup.s.rev":"In review","mockup.s.err":"Changes","mockup.s.pen":"Pending","mockup.s.pen2":"Pending",
@@ -534,18 +532,17 @@ const T = {
     "how.s1.t":"Import your project","how.s1.d":"Upload your budget, breakdown, credits spreadsheet. MyPostCoord detects the columns and sets it up automatically.",
     "how.s2.t":"Invite your team","how.s2.d":"Director, producer, technicians… Each one enters their part. You decide what each profile sees.",
     "how.s3.t":"Coordinate in one place","how.s3.d":"Statuses at one click, unified reviews, automatic reports. What used to be a morning is now a button.",
-    "beta.eyebrow":"🎯 Beta access · Free during beta",
-    "beta.title":"I want to use it on my next project.",
-    "beta.lead":"We're inviting post-production coordinators to try MyPostCoord on real projects. Full access, free during beta, in exchange for feedback.",
-    "beta.placeholder":"your@email.com","beta.btn":"I want in",
-    "beta.fine":"No spam. We only reach out when your invitation is ready.",
-    "beta.success":"✓ Got it! We'll reach out as soon as a seat opens up.",
+    "beta.eyebrow":"🚀 Start today · Free",
+    "beta.title":"Coordinate your next project from day one.",
+    "beta.lead":"Create your account in seconds, set up your projects and invite your team. No installation, no credit card.",
+    "beta.btn1":"Create free account →","beta.btn2":"I already have an account",
+    "beta.fine":"No credit card · No installation · On all devices",
     "faq.eyebrow":"Frequently asked questions","faq.title":"What you're probably wondering.",
     "faq.q1":"Who's behind MyPostCoord?","faq.a1":"It's being built by people in the audiovisual industry, with real coordinators giving constant feedback. It's not a generic tool retrofitted — it's designed from scratch for post-production.",
     "faq.q2":"Does it replace Frame.io?","faq.a2":"Not entirely, but it does integrate director and producer reviews in the same flow. If you only use Frame.io for the director to approve VFX, color grading or subtitles deliveries, it probably covers that.",
     "faq.q3":"What about my budget spreadsheets?","faq.a3":"You import them as-is. The Cost Control module automatically detects whether it's a budget or invoice table by reading the column names. There's also a downloadable official template.",
     "faq.q4":"Is my data secure?","faq.a4":"Yes. We use Supabase with encryption at rest and in transit, secure authentication and Row Level Security: each user only sees the projects they have access to. We never share data with third parties.",
-    "faq.q5":"How much will it cost after beta?","faq.a5":"We're still figuring it out with beta feedback. There will be a per-project plan and a per-studio plan. Beta users will get special lifetime conditions.",
+    "faq.q5":"How much does it cost?","faq.a5":"MyPostCoord has a free plan to get started. There will be paid plans per project and per studio for teams that need advanced features.",
     "faq.q6":"Does it work for series, not just films?","faq.a6":"Yes. When you create a project you choose if it's a film or a series, and for series you define how many episodes. Each episode is a project within the project.",
     "footer.bot":"© 2026 MyPostCoord · Made with love for post-production coordinators."
   }
