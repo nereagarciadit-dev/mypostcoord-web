@@ -13,7 +13,7 @@
 <meta property="og:image" content="https://mypostcoord.com/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpolygon points='20,3 35,12 35,30 20,39 5,30 5,12' fill='%23E8C832'/%3E%3Cpolygon points='20,9 31,15 31,29 20,35 9,29 9,15' fill='%23141412'/%3E%3Ctext x='20' y='27' text-anchor='middle' font-family='system-ui' font-size='12' font-weight='700' fill='%23E8C832'%3EPC%3C/text%3E%3C/svg%3E">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpolygon points='50,4 89.8,27 89.8,73 50,96 10.2,73 10.2,27' fill='%23E8C832'/%3E%3Cpolygon points='50,18 77.7,34 77.7,66 50,82 22.3,66 22.3,34' fill='%23141412'/%3E%3Ctext x='50' y='67' text-anchor='middle' font-family='system-ui' font-size='36' font-weight='700' fill='%23E8C832'%3EPC%3C/text%3E%3C/svg%3E">
 
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;600;700;800&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 
@@ -261,6 +261,34 @@ footer { background: var(--nav-bg); color: #7A7770;
 .footer-bot { margin-top: 28px; padding-top: 22px;
   border-top: 1px solid #2A2926;
   font-size: 12px; color: #5A5750; text-align: center; }
+
+.pricing-grid { display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 16px; margin-top: 50px; align-items: start; }
+@media (max-width: 1080px) { .pricing-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px)  { .pricing-grid { grid-template-columns: 1fr; } }
+.plan-card { background: var(--bg); border: 1px solid var(--border2);
+  border-radius: 12px; padding: 28px 24px; position: relative; }
+.plan-card.plan-featured { border: 2px solid var(--acc);
+  background: var(--yelbg);
+  box-shadow: 0 8px 30px rgba(232,200,50,0.15); }
+.plan-badge { display: inline-block; background: var(--acc); color: var(--nav-bg);
+  font-size: 10px; font-weight: 700; font-family: 'DM Mono', monospace;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 3px 10px; border-radius: 10px; margin-bottom: 14px; }
+.plan-name { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 700;
+  margin-bottom: 12px; letter-spacing: -0.3px; }
+.plan-price { margin-bottom: 8px; line-height: 1; }
+.plan-eur { font-family: 'Syne', sans-serif; font-size: 40px;
+  font-weight: 800; letter-spacing: -2px; }
+.plan-per { font-size: 14px; color: var(--text3); font-weight: 400; }
+.plan-desc { font-size: 13px; color: var(--text3); margin-bottom: 20px; line-height: 1.4; }
+.plan-features { list-style: none; margin-bottom: 24px; display: flex; flex-direction: column; gap: 9px; }
+.plan-features li { font-size: 14px; color: var(--text2);
+  display: flex; align-items: center; gap: 8px; }
+.plan-features li::before { content: "✓"; color: var(--grn); font-weight: 700; flex-shrink: 0; }
+.plan-btn { width: 100%; justify-content: center; font-size: 14px; padding: 11px 16px; }
+.pricing-fine { text-align: center; font-size: 13px; color: var(--text3);
+  margin-top: 24px; }
 </style>
 </head>
 <body>
@@ -268,10 +296,10 @@ footer { background: var(--nav-bg); color: #7A7770;
 <nav class="nav">
   <div class="nav-inner">
     <a href="#" class="brand">
-      <svg viewBox="0 0 40 40" width="28" height="28">
-        <polygon points="20,3 35,12 35,30 20,39 5,30 5,12" fill="#E8C832"/>
-        <polygon points="20,9 31,15 31,29 20,35 9,29 9,15" fill="#141412"/>
-        <text x="20" y="27" text-anchor="middle" font-family="system-ui" font-size="12" font-weight="700" fill="#E8C832">PC</text>
+      <svg viewBox="0 0 100 100" width="28" height="28">
+        <polygon points="50,4 89.8,27 89.8,73 50,96 10.2,73 10.2,27" fill="#E8C832"/>
+        <polygon points="50,18 77.7,34 77.7,66 50,82 22.3,66 22.3,34" fill="#141412"/>
+        <text x="50" y="67" text-anchor="middle" font-family="system-ui" font-size="36" font-weight="700" fill="#E8C832">PC</text>
       </svg>
       MyPostCoord
     </a>
@@ -279,6 +307,7 @@ footer { background: var(--nav-bg); color: #7A7770;
       <a href="#problema" data-i18n="nav.problem">Problema</a>
       <a href="#modulos" data-i18n="nav.modules">Módulos</a>
       <a href="#como" data-i18n="nav.how">Cómo funciona</a>
+      <a href="#precios" data-i18n="nav.pricing">Precios</a>
       <a href="#faq" data-i18n="nav.faq">FAQ</a>
       <div class="lang-toggle">
         <button class="lang-btn active" data-lang="es">ES</button>
@@ -384,6 +413,74 @@ footer { background: var(--nav-bg); color: #7A7770;
   </div>
 </section>
 
+<section id="precios">
+  <div class="container">
+    <div class="section-eyebrow" data-i18n="pricing.eyebrow">Planes</div>
+    <h2 class="section-title" data-i18n="pricing.title">Simple y transparente.</h2>
+    <p class="section-lead" data-i18n="pricing.lead">Elige el plan que se adapta a tu proyecto o estudio. Sin sorpresas, sin permanencia.</p>
+    <div class="pricing-grid">
+
+      <div class="plan-card">
+        <div class="plan-name" data-i18n="plan.free.name">Free</div>
+        <div class="plan-price"><span class="plan-eur">0</span> <span class="plan-per" data-i18n="plan.per">€/mes</span></div>
+        <div class="plan-desc" data-i18n="plan.free.desc">Para explorar la herramienta.</div>
+        <ul class="plan-features">
+          <li data-i18n="plan.free.f1">1 usuario</li>
+          <li data-i18n="plan.free.f2">5 GB de almacenamiento</li>
+          <li data-i18n="plan.free.f3">1 proyecto activo</li>
+          <li data-i18n="plan.free.f4">Todos los módulos</li>
+        </ul>
+        <a href="https://postcoord-2u011az04-nereagarciadit-devs-projects.vercel.app" class="btn btn-secondary plan-btn" data-i18n="plan.free.cta">Empezar gratis</a>
+      </div>
+
+      <div class="plan-card">
+        <div class="plan-name" data-i18n="plan.starter.name">Starter</div>
+        <div class="plan-price"><span class="plan-eur">29</span> <span class="plan-per" data-i18n="plan.per2">€/mes</span></div>
+        <div class="plan-desc" data-i18n="plan.starter.desc">Para coordinadoras independientes.</div>
+        <ul class="plan-features">
+          <li data-i18n="plan.starter.f1">3 usuarios</li>
+          <li data-i18n="plan.starter.f2">50 GB de almacenamiento</li>
+          <li data-i18n="plan.starter.f3">Proyectos ilimitados</li>
+          <li data-i18n="plan.starter.f4">Todos los módulos</li>
+          <li data-i18n="plan.starter.f5">Soporte por email</li>
+        </ul>
+        <a href="https://postcoord-2u011az04-nereagarciadit-devs-projects.vercel.app" class="btn btn-primary plan-btn" data-i18n="plan.starter.cta">Empezar →</a>
+      </div>
+
+      <div class="plan-card plan-featured">
+        <div class="plan-badge" data-i18n="plan.badge">Más popular</div>
+        <div class="plan-name" data-i18n="plan.pro.name">Pro</div>
+        <div class="plan-price"><span class="plan-eur">69</span> <span class="plan-per" data-i18n="plan.per3">€/mes</span></div>
+        <div class="plan-desc" data-i18n="plan.pro.desc">Para coordinadoras con equipo.</div>
+        <ul class="plan-features">
+          <li data-i18n="plan.pro.f1">5 usuarios</li>
+          <li data-i18n="plan.pro.f2">100 GB de almacenamiento</li>
+          <li data-i18n="plan.pro.f3">Proyectos ilimitados</li>
+          <li data-i18n="plan.pro.f4">Todos los módulos</li>
+          <li data-i18n="plan.pro.f5">Soporte prioritario</li>
+        </ul>
+        <a href="https://postcoord-2u011az04-nereagarciadit-devs-projects.vercel.app" class="btn btn-primary plan-btn" data-i18n="plan.pro.cta">Empezar →</a>
+      </div>
+
+      <div class="plan-card">
+        <div class="plan-name" data-i18n="plan.studio.name">Studio</div>
+        <div class="plan-price"><span class="plan-eur">149</span> <span class="plan-per" data-i18n="plan.per4">€/mes</span></div>
+        <div class="plan-desc" data-i18n="plan.studio.desc">Para estudios y productoras.</div>
+        <ul class="plan-features">
+          <li data-i18n="plan.studio.f1">10 usuarios</li>
+          <li data-i18n="plan.studio.f2">150 GB de almacenamiento</li>
+          <li data-i18n="plan.studio.f3">Proyectos ilimitados</li>
+          <li data-i18n="plan.studio.f4">Todos los módulos</li>
+          <li data-i18n="plan.studio.f5">Soporte dedicado</li>
+        </ul>
+        <a href="https://postcoord-2u011az04-nereagarciadit-devs-projects.vercel.app" class="btn btn-secondary plan-btn" data-i18n="plan.studio.cta">Empezar →</a>
+      </div>
+
+    </div>
+    <p class="pricing-fine" data-i18n="pricing.fine">+1 TB de almacenamiento adicional por 50 €/mes · IVA no incluido · Sin permanencia</p>
+  </div>
+</section>
+
 <section id="beta">
   <div class="container">
     <div class="beta">
@@ -418,10 +515,10 @@ footer { background: var(--nav-bg); color: #7A7770;
   <div class="container">
     <div class="footer-inner">
       <div class="footer-brand">
-        <svg viewBox="0 0 40 40" width="24" height="24">
-          <polygon points="20,3 35,12 35,30 20,39 5,30 5,12" fill="#E8C832"/>
-          <polygon points="20,9 31,15 31,29 20,35 9,29 9,15" fill="#141412"/>
-          <text x="20" y="27" text-anchor="middle" font-family="system-ui" font-size="12" font-weight="700" fill="#E8C832">PC</text>
+        <svg viewBox="0 0 100 100" width="24" height="24">
+          <polygon points="50,4 89.8,27 89.8,73 50,96 10.2,73 10.2,27" fill="#E8C832"/>
+          <polygon points="50,18 77.7,34 77.7,66 50,82 22.3,66 22.3,34" fill="#141412"/>
+          <text x="50" y="67" text-anchor="middle" font-family="system-ui" font-size="36" font-weight="700" fill="#E8C832">PC</text>
         </svg>
         MyPostCoord
       </div>
@@ -439,7 +536,7 @@ footer { background: var(--nav-bg); color: #7A7770;
 <script>
 const T = {
   es: {
-    "nav.problem":"Problema","nav.modules":"Módulos","nav.how":"Cómo funciona","nav.faq":"FAQ","nav.cta":"Entrar",
+    "nav.problem":"Problema","nav.modules":"Módulos","nav.how":"Cómo funciona","nav.pricing":"Precios","nav.faq":"FAQ","nav.cta":"Entrar",
     "hero.eyebrow":"Disponible ahora · Sin instalación",
     "hero.title1":"El sistema operativo de la","hero.title2":"coordinación de postproducción",
     "hero.sub":"Breakdown, screener, subtítulos, ADR, cost control, deliveries… Una sola app para coordinar postproducción. Sin Excels duplicados ni mails infinitos.",
@@ -488,12 +585,19 @@ const T = {
     "faq.q2":"¿Reemplaza a Frame.io?","faq.a2":"No del todo, pero sí integra revisiones del director y productor en un mismo flujo. Si solo usas Frame.io para que el director apruebe entregas de VFX, etalonaje o subtítulos, probablemente sí lo cubre.",
     "faq.q3":"¿Y mis Excels de presupuesto?","faq.a3":"Los importas tal cual. El módulo Cost Control detecta automáticamente si es tabla de presupuesto o de facturas leyendo los nombres de las columnas. También hay plantilla oficial descargable.",
     "faq.q4":"¿Mis datos están seguros?","faq.a4":"Sí. Usamos Supabase con cifrado en reposo y en tránsito, autenticación segura y Row Level Security: cada usuario solo ve los proyectos a los que tiene acceso. Nunca compartimos datos con terceros.",
-    "faq.q5":"¿Cuánto cuesta?","faq.a5":"MyPostCoord tiene un plan gratuito para empezar. Habrá planes de pago por proyecto y por estudio para equipos que necesiten funcionalidades avanzadas.",
+    "pricing.eyebrow":"Planes","pricing.title":"Simple y transparente.","pricing.lead":"Elige el plan que se adapta a tu proyecto o estudio. Sin sorpresas, sin permanencia.",
+    "plan.badge":"Más popular","plan.per":"€/mes","plan.per2":"€/mes","plan.per3":"€/mes","plan.per4":"€/mes",
+    "plan.free.name":"Free","plan.free.desc":"Para explorar la herramienta.","plan.free.f1":"1 usuario","plan.free.f2":"5 GB de almacenamiento","plan.free.f3":"1 proyecto activo","plan.free.f4":"Todos los módulos","plan.free.cta":"Empezar gratis",
+    "plan.starter.name":"Starter","plan.starter.desc":"Para coordinadoras independientes.","plan.starter.f1":"3 usuarios","plan.starter.f2":"50 GB de almacenamiento","plan.starter.f3":"Proyectos ilimitados","plan.starter.f4":"Todos los módulos","plan.starter.f5":"Soporte por email","plan.starter.cta":"Empezar →",
+    "plan.pro.name":"Pro","plan.pro.desc":"Para coordinadoras con equipo.","plan.pro.f1":"5 usuarios","plan.pro.f2":"100 GB de almacenamiento","plan.pro.f3":"Proyectos ilimitados","plan.pro.f4":"Todos los módulos","plan.pro.f5":"Soporte prioritario","plan.pro.cta":"Empezar →",
+    "plan.studio.name":"Studio","plan.studio.desc":"Para estudios y productoras.","plan.studio.f1":"10 usuarios","plan.studio.f2":"150 GB de almacenamiento","plan.studio.f3":"Proyectos ilimitados","plan.studio.f4":"Todos los módulos","plan.studio.f5":"Soporte dedicado","plan.studio.cta":"Empezar →",
+    "pricing.fine":"+1 TB de almacenamiento adicional por 50 €/mes · IVA no incluido · Sin permanencia",
+    "faq.q5":"¿Cuánto cuesta?","faq.a5":"Hay 4 planes: Free (0 €, 1 usuario), Starter (29 €/mes, 3 usuarios), Pro (69 €/mes, 5 usuarios) y Studio (149 €/mes, 10 usuarios). Todos incluyen acceso completo a los 17 módulos. Puedes añadir 1 TB extra por 50 €/mes.",
     "faq.q6":"¿Funciona para series, no solo películas?","faq.a6":"Sí. Al crear un proyecto eliges si es película o serie, y en serie defines cuántos capítulos. Cada capítulo es un proyecto dentro del proyecto.",
     "footer.bot":"© 2026 MyPostCoord · Hecho con cariño para coordinadoras de postproducción."
   },
   en: {
-    "nav.problem":"Problem","nav.modules":"Modules","nav.how":"How it works","nav.faq":"FAQ","nav.cta":"Log in",
+    "nav.problem":"Problem","nav.modules":"Modules","nav.how":"How it works","nav.pricing":"Pricing","nav.faq":"FAQ","nav.cta":"Log in",
     "hero.eyebrow":"Available now · No installation needed",
     "hero.title1":"The operating system for","hero.title2":"post-production coordination",
     "hero.sub":"Breakdown, screener, subtitles, ADR, cost control, deliveries… One app to coordinate post-production. No more duplicated spreadsheets or endless email threads.",
@@ -542,7 +646,14 @@ const T = {
     "faq.q2":"Does it replace Frame.io?","faq.a2":"Not entirely, but it does integrate director and producer reviews in the same flow. If you only use Frame.io for the director to approve VFX, color grading or subtitles deliveries, it probably covers that.",
     "faq.q3":"What about my budget spreadsheets?","faq.a3":"You import them as-is. The Cost Control module automatically detects whether it's a budget or invoice table by reading the column names. There's also a downloadable official template.",
     "faq.q4":"Is my data secure?","faq.a4":"Yes. We use Supabase with encryption at rest and in transit, secure authentication and Row Level Security: each user only sees the projects they have access to. We never share data with third parties.",
-    "faq.q5":"How much does it cost?","faq.a5":"MyPostCoord has a free plan to get started. There will be paid plans per project and per studio for teams that need advanced features.",
+    "pricing.eyebrow":"Pricing","pricing.title":"Simple and transparent.","pricing.lead":"Choose the plan that fits your project or studio. No surprises, no commitment.",
+    "plan.badge":"Most popular","plan.per":"€/mo","plan.per2":"€/mo","plan.per3":"€/mo","plan.per4":"€/mo",
+    "plan.free.name":"Free","plan.free.desc":"To explore the tool.","plan.free.f1":"1 user","plan.free.f2":"5 GB storage","plan.free.f3":"1 active project","plan.free.f4":"All modules","plan.free.cta":"Start for free",
+    "plan.starter.name":"Starter","plan.starter.desc":"For independent coordinators.","plan.starter.f1":"3 users","plan.starter.f2":"50 GB storage","plan.starter.f3":"Unlimited projects","plan.starter.f4":"All modules","plan.starter.f5":"Email support","plan.starter.cta":"Get started →",
+    "plan.pro.name":"Pro","plan.pro.desc":"For coordinators with a team.","plan.pro.f1":"5 users","plan.pro.f2":"100 GB storage","plan.pro.f3":"Unlimited projects","plan.pro.f4":"All modules","plan.pro.f5":"Priority support","plan.pro.cta":"Get started →",
+    "plan.studio.name":"Studio","plan.studio.desc":"For studios and production companies.","plan.studio.f1":"10 users","plan.studio.f2":"150 GB storage","plan.studio.f3":"Unlimited projects","plan.studio.f4":"All modules","plan.studio.f5":"Dedicated support","plan.studio.cta":"Get started →",
+    "pricing.fine":"+1 TB extra storage for €50/mo · VAT not included · No lock-in",
+    "faq.q5":"How much does it cost?","faq.a5":"There are 4 plans: Free (€0, 1 user), Starter (€29/mo, 3 users), Pro (€69/mo, 5 users) and Studio (€149/mo, 10 users). All include full access to all 17 modules. You can add 1 TB extra storage for €50/mo.",
     "faq.q6":"Does it work for series, not just films?","faq.a6":"Yes. When you create a project you choose if it's a film or a series, and for series you define how many episodes. Each episode is a project within the project.",
     "footer.bot":"© 2026 MyPostCoord · Made with love for post-production coordinators."
   }
